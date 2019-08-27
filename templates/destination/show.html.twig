@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Destination{% endblock %}
+
+{% block body %}
+    <h1>destination</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ destination.id }}</td>
+        </tr>
+        <tr>
+            <th>name</th>
+            <td>{{ destination.name }}</td>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <td>{{ destination.country }}</td>
+        </tr>
+        <tr>
+            <th>description</th>
+            <td>{{ destination.description }}</td>
+
+        </tr>
+        <tr>
+            <th>Photo</th>
+            <td>{{ destination.photo }}</td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('destination_index') }}">back to list</a>
+    <a href="{{ path('destination_edit', {id: destination.id}) }}">edit</a>
+
+{% endblock %}

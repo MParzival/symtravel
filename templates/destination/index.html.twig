@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Les destinations'%}
+
+{% block body %}
+    {#<h1>Destinations</h1>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <table class="table">
+        <thead>
+        <th>#</th>
+        <th>Nom</th>
+        <th>Country</th>
+        <th>description</th>
+        <th>photo</th>
+        <th>Type de destination</th>
+        <th>Options</th>
+        </thead>
+        <tbody>
+        {% for destination in destinations %}
+            <tr>
+                <th>{{ destination.id }}</th>
+                <td>{{ destination.name }}</td>
+                <td>{{ destination.country }}</td>
+                <td>{{ destination.description }}</td>
+                <td>{{ destination.photo }}</td>
+                <td>{{ destination.type.name }}</td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn"><a href="{{ path('destination_edit', {id: destination.id}) }}"><i class="fa fa-edit"></i></a></button>
+                        <form method="post" action="{{ path('destination_delete', {id : destination.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ destination.id) }}">
+                            <button class="btn"><a><i class="fa fa-trash"></i></a></button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div><a href="{{ path('destination_create') }}" class="btn btn-success btn-rounded">Créer une destination</a></div>
+    #}{#<a href="{{ path('type_index') }}">back to list</a>#}
+
+    <div class="container">
+        <h2>Les dernieres destinations ajoutées : </h2>
+        <div class="row flex">
+            {% for destination in destinations %}
+                <div class="col-3">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ asset('uploads/destinations/' ~ destination.photo) }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ path('destination_show', {id: destination.id}) }}">{{ destination.name }}</a>
+                            </h5>
+                            <p class="card-text">{{ destination.country }}</p>
+                            <p class="card-text">{{ destination.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

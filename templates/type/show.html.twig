@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Les types'%}
+
+{% block body %}
+    <h1>Types</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ type.id }}</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>{{ type.name }}</td>
+        </tr>
+
+
+        </tbody>
+    </table>
+
+{% endblock %}
+
+

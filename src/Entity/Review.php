@@ -17,7 +17,7 @@ class Review
     private $id;
 
     /**
-     * @ORM\Column(type="text"clear)
+     * @ORM\Column(type="text")
      */
     private $content;
 

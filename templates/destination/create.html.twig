@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title 'Modification destination' %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {% if editMode %}
+        <button class="btn btn-success pull-right">UPDATE</button>
+    {% else %}
+        <button class="btn btn-success pull-right">SAVE</button>
+    {% endif %}
+    {{ form_end(form) }}
+{% endblock %}
+
