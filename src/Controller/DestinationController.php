@@ -41,14 +41,20 @@ class DestinationController extends AbstractController
     /**
      * @Route("/destination", name="destination_index")
      * @param DestinationRepository $repository
+     * @param Request $request
      * @return Response
      */
-    public function index(DestinationRepository $repository)
+    public function index(DestinationRepository $repository,Request $request)
     {
-        $destinations = $repository->findAll();
+        $result = null;
+        $destinationSearch = $request->request->get('destinationSearch');
+        if($destinationSearch){
+            $result = $repository->findByNameAndDescription($destinationSearch);
+        } else{
+            $result = $repository->findAll();
+        }
         return $this->render('destination/index.html.twig', [
-            'controller_name' => 'TypeController',
-            'destinations' => $destinations
+            'destinations' => $result
         ]);
     }
 
@@ -67,12 +73,12 @@ class DestinationController extends AbstractController
         $form=$this->createForm(DestinationType::class,$destination);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $photoFile = $form['photo']->getData();
+            /*$photoFile = $form['photo']->getData();
 
             if ($photoFile) {
                 $photoName = $fileUploadService->uploadFile( $photoFile );
                 $destination->setPhoto( $photoName );
-            }
+            }*/
             $this->manager->persist($destination);
             $this->manager->flush();
             $this->addFlash('success', 'Votre destination a bien été modifié avec succés !');

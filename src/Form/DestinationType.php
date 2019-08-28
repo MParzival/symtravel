@@ -19,7 +19,7 @@ class DestinationType extends AbstractType
             ->add('name')
             ->add('country')
             ->add('description')
-            ->add('photo', FileType::class, [
+            /*->add('photo', FileType::class, [
                 'label' => 'Photo à uploader',
                 'mapped' => false,
                 'required' => false,
@@ -34,6 +34,9 @@ class DestinationType extends AbstractType
                         'mimeTypesMessage' => 'Veuillez uploader un fichier png, jpg, jpeg uniquement.',
                     ])
                 ]
+            ])*/
+            ->add('imageFile', FileType::class, [
+                'required' => false
             ])
             ->add('type', EntityType::class, [
                 'choice_label' => 'name',

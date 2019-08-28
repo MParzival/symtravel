@@ -1,4 +1,4 @@
-
+/public/uploads/destinations
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -18,3 +18,7 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 /.idea/
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###

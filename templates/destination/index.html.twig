@@ -46,19 +46,27 @@
     <div><a href="{{ path('destination_create') }}" class="btn btn-success btn-rounded">Créer une destination</a></div>
     #}{#<a href="{{ path('type_index') }}">back to list</a>#}
 
-    <div class="container">
+    <div class="container mt-4">
         <h2>Les dernieres destinations ajoutées : </h2>
-        <div class="row flex">
+        <div class="row flex mt-4">
             {% for destination in destinations %}
-                <div class="col-3">
+                <div class="col-md-4 mt-4">
                     <div class="card">
-                        <img class="card-img-top" src="{{ asset('uploads/destinations/' ~ destination.photo) }}" alt="Card image cap">
+                        {% if destination.filename %}
+                            <img src="{{ vich_uploader_asset(destination, 'imageFile') | imagine_filter('thumb') }}" alt="mon image" class="card-img-top" style="width: 100%; height: auto">
+                       {# {% else %}
+                            <img src="{{ '/images/properties/empty.jpg' | imagine_filter('thumb') }}" alt="mon image" class="card-img-top" style="width: 100%; height: auto">
+                        #}{% endif %}
                         <div class="card-body">
+                            <h5 class="card-title">
+                                {{ destination.type.name }}
+                            </h5>
                             <h5 class="card-title">
                                 <a href="{{ path('destination_show', {id: destination.id}) }}">{{ destination.name }}</a>
                             </h5>
                             <p class="card-text">{{ destination.country }}</p>
                             <p class="card-text">{{ destination.description}}</p>
+
                         </div>
                     </div>
                 </div>
