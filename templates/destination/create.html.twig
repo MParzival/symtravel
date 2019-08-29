@@ -4,6 +4,9 @@
 {% block body %}
     {{ form_start(form) }}
     {{ form_widget(form) }}
+    {% if destination.photo %}
+        <img src="{{ vich_uploader_asset(destination, 'imageFile') | imagine_filter('thumb') }}" alt="image_card">
+    {% endif %}
     {% if editMode %}
         <button class="btn btn-success pull-right">UPDATE</button>
     {% else %}

@@ -4,35 +4,61 @@
 
 {% block body %}
     <h1>destination</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ destination.id }}</td>
+                </tr>
+                <tr>
+                    <th>name</th>
+                    <td>{{ destination.name }}</td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td>{{ destination.country }}</td>
+                </tr>
+                <tr>
+                    <th>description</th>
+                    <td>{{ destination.description }}</td>
 
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ destination.id }}</td>
-        </tr>
-        <tr>
-            <th>name</th>
-            <td>{{ destination.name }}</td>
-        </tr>
-        <tr>
-            <th>Country</th>
-            <td>{{ destination.country }}</td>
-        </tr>
-        <tr>
-            <th>description</th>
-            <td>{{ destination.description }}</td>
+                </tr>
+                <tr>
+                    <th>Photo</th>
+                    <td>
+                        {% if destination.photo %}
+                            <img src="{{ vich_uploader_asset(destination, 'imageFile') | imagine_filter('thumb') }}" alt="image_card">
+                        {% endif %}
+                    </td>
 
-        </tr>
-        <tr>
-            <th>Photo</th>
-            <td>{{ destination.photo }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4-md">
+            <a href="{{ path('destination_index') }}" class="btn btn-sm btn-primary">back to list</a>
+            {% if app.user%}
+                <a href="{{ path('destination_edit', {id: destination.id}) }}" class="btn btn-sm btn-primary">edit</a>
+                <div class="btn-group">
+                    <form method="post" action="{{ path('destination_delete', {id : destination.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ destination.id) }}">
+                        <button class="btn"><a><i class="fa fa-trash"></i></a></button>
+                    </form>
+                </div>
+                <h3>Reviews déjà ajoutées</h3>
+                    <ul>
+                        {% for review in destination.reviews %}
+                            <li>{{ review.user.email}}</li>
+                        {% endfor %}
+                    </ul>
+                <h3>Ajouter une review</h3>
 
-        </tr>
-        </tbody>
-    </table>
+            {% endif %}
+        </div>
+    </div>
 
-    <a href="{{ path('destination_index') }}">back to list</a>
-    <a href="{{ path('destination_edit', {id: destination.id}) }}">edit</a>
 
 {% endblock %}

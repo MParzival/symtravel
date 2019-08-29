@@ -62,11 +62,29 @@
                                 {{ destination.type.name }}
                             </h5>
                             <h5 class="card-title">
-                                <a href="{{ path('destination_show', {id: destination.id}) }}">{{ destination.name }}</a>
+                                <a href="{{ path('destination_show', {id: destination.id}) }}">{{ destination.name }} </a>
+                                <p class="mt-2">({{ destination.country }})</p>
                             </h5>
-                            <p class="card-text">{{ destination.country }}</p>
                             <p class="card-text">{{ destination.description}}</p>
+                            <P class="card-footer pull-right">
+                                {% if app.user %}
 
+                                    {% set userHasVisited = false %}
+
+                                    {% for review in destination.reviews if review.user.id == app.user.id %}
+
+                                        {% set userHasVisited = true %}
+
+                                    {% endfor %}
+
+                                    {% if userHasVisited %}
+                                        <a class="btn btn-warning" href="{{ path("review_unvisited", { destination: destination.id, user: app.user.id }) }}">Retirer la visite</a>
+                                    {% else %}
+                                        <a class="btn btn-primary " href="{{ path("review_visited", { destination: destination.id, user: app.user.id }) }}">Ajouter une visite</a>
+                                    {% endif %}
+
+                                {% endif %}
+                            </P>
                         </div>
                     </div>
                 </div>

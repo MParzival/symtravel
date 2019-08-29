@@ -12,6 +12,7 @@ class PublicController extends AbstractController
      */
     public function index()
     {
+
         return $this->render('public/home.html.twig');
     }
 }

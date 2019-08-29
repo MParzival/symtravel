@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Destination;
+use App\Entity\Type;
 use App\Form\DestinationType;
-use App\Form\TypeType;
 use App\Repository\DestinationRepository;
 use App\Repository\TypeRepository;
 use App\Services\FileUploadService;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -65,6 +66,7 @@ class DestinationController extends AbstractController
      * @param Destination|null $destination
      * @param FileUploadService $fileUploadService
      * @return RedirectResponse|Response
+     * @IsGranted("ROLE_USER")
      */
     public function create(Request $request,Destination $destination=null, FileUploadService $fileUploadService){
         if(!$destination){
@@ -101,7 +103,7 @@ class DestinationController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$destination->getId(), $request->request->get('_token'))) {
             $this->manager->remove($destination);
             $this->manager->flush();
-            $this->addFlash('success', 'Votre type a bien été supprimé avec succés !');
+            $this->addFlash('success', 'Votre destination a bien été supprimé avec succés !');
         }
         return $this->redirectToRoute('destination_index');
     }
@@ -117,4 +119,5 @@ class DestinationController extends AbstractController
             'destination' => $destination,
         ]);
     }
+
 }
